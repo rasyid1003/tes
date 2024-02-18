@@ -13,8 +13,6 @@ function karakterTerbanyak($kata) {
             $count[$karakter] = 1;
         }
     }
-
-    // Mencari karakter dengan kemunculan paling banyak
     $maxKarakter = '';
     $maxJumlah = 0;
     foreach ($count as $karakter => $jumlah) {
@@ -23,14 +21,10 @@ function karakterTerbanyak($kata) {
             $maxJumlah = $jumlah;
         }
     }
-
-    // Menghasilkan output sesuai format yang diminta
     $output = "Karakter yang paling sering muncul dalam kata \"$kata\" adalah \"$maxKarakter\" sebanyak $maxJumlah kali.";
 
     return $output;
 }
-
-// Contoh penggunaan
 echo karakterTerbanyak('wellcome');
 echo karakterTerbanyak('strawberry');
 ?>

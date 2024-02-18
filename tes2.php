@@ -8,12 +8,10 @@
 </head>
 <body>
     <h1>Data Siswa</h1>
-
     <?php
     class Nilai {
         public $mapel;
         public $nilai;
-
         public function __construct($mapel, $nilai) {
             $this->mapel = $mapel;
             $this->nilai = $nilai;
@@ -24,23 +22,20 @@
         public $nrp;
         public $nama;
         public $daftarNilai;
-
         public function __construct($nrp, $nama) {
             $this->nrp = $nrp;
             $this->nama = $nama;
             $this->daftarNilai = [];
         }
-
         public function tambahNilai(Nilai $nilai) {
             if(count($this->daftarNilai) < 3) {
                 $this->daftarNilai[] = $nilai;
                 return true;
             } else {
-                return false; // Jika daftarNilai sudah penuh
+                return false;
             }
         }
     }
-
     function generateRandomName($length = 10) {
         $characters = 'abcdef';
         $randomString = '';
@@ -49,7 +44,6 @@
         }
         return $randomString;
     }
-
     $daftarSiswa = [];
     for ($i = 0; $i < 10; $i++) {
         $nama = generateRandomName();
@@ -60,7 +54,6 @@
         $siswa->tambahNilai($nilaiSiswa);
         $daftarSiswa[] = $siswa;
     }
-
     echo "<ol>";
     foreach ($daftarSiswa as $siswa) {
         echo "<li>";

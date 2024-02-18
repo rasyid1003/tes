@@ -12,8 +12,6 @@ function rambuLaluLintas() {
 
     return $color;
 }
-
-// Contoh pemanggilan fungsi
 echo rambuLaluLintas() . "<br>"; // Output: merah
 echo rambuLaluLintas() . "<br>"; // Output: kuning
 echo rambuLaluLintas() . "<br>"; // Output: hijau

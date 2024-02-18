@@ -1,30 +1,26 @@
 <?php
-function karakterTerbanyak($kata) {
-    // Inisialisasi array untuk menyimpan jumlah kemunculan setiap karakter
-    $count = array();
-
-    // Menghitung kemunculan setiap karakter dalam kata
+function karakter_terbanyak($kata) {
+    $hitung = array();
     $panjang = strlen($kata);
     for ($i = 0; $i < $panjang; $i++) {
         $karakter = $kata[$i];
-        if (isset($count[$karakter])) {
-            $count[$karakter]++;
+        if (isset($hitung[$karakter])) {
+            $hitung[$karakter]++;
         } else {
-            $count[$karakter] = 1;
+            $hitung[$karakter] = 1;
         }
     }
-    $maxKarakter = '';
-    $maxJumlah = 0;
-    foreach ($count as $karakter => $jumlah) {
-        if ($jumlah > $maxJumlah) {
-            $maxKarakter = $karakter;
-            $maxJumlah = $jumlah;
+    $karakter_max = '';
+    $jumlah_max = 0;
+    foreach ($hitung as $karakter => $jumlah) {
+        if ($jumlah > $jumlah_max) {
+            $karakter_max = $karakter;
+            $jumlah_max = $jumlah;
         }
     }
-    $output = "Karakter yang paling sering muncul dalam kata \"$kata\" adalah \"$maxKarakter\" sebanyak $maxJumlah kali.";
-
+    $output = "Karakter yang paling sering muncul dalam kata \"$kata\" adalah \"$karakter_max\" sebanyak $jumlah_max kali.";
     return $output;
 }
-echo karakterTerbanyak('wellcome');
-echo karakterTerbanyak('strawberry');
+echo karakter_terbanyak('wellcome');
+echo karakter_terbanyak('strawberry');          
 ?>

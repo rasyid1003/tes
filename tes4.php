@@ -1,14 +1,14 @@
 <?php
-function secondLargest($arr) {
+function angka($arr) {
     
     if (count($arr) < 2) {
         return "Array harus memiliki minimal dua elemen";
     }
     rsort($arr);
-    $secondLargest = $arr[1];
-    return $secondLargest;
+    $angka = $arr[1];
+    return $angka;
 }
 $array = array(10, 5, 8, 15, 3);
-$secondLargestValue = secondLargest($array);
-echo "Nilai terbesar kedua dari array adalah: " . $secondLargestValue;
+$angkavalue = angka($array);
+echo "Nilai terbesar kedua dari array adalah: " . $angkavalue;
 ?>

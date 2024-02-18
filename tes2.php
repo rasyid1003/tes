@@ -1,4 +1,3 @@
-<!-- index.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,45 +20,48 @@
     class Siswa {
         public $nrp;
         public $nama;
-        public $daftarNilai;
+        public $daftarnilai;
         public function __construct($nrp, $nama) {
             $this->nrp = $nrp;
             $this->nama = $nama;
-            $this->daftarNilai = [];
+            $this->daftarnilai = [];
         }
         public function tambahNilai(Nilai $nilai) {
-            if(count($this->daftarNilai) < 3) {
-                $this->daftarNilai[] = $nilai;
+            if(count($this->daftarnilai) < 3) {
+                $this->daftarnilai[] = $nilai;
                 return true;
             } else {
                 return false;
             }
         }
     }
-    function generateRandomName($length = 10) {
-        $characters = 'abcdef';
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+
+    function generateRandomName($panjang = 10) {
+        $karakter = 'abcdef';
+        $string = '';
+        for ($i = 0; $i < $panjang; $i++) {
+            $string .= $karakter[rand(0, strlen($karakter) - 1)];
         }
-        return $randomString;
+        return $string;
     }
-    $daftarSiswa = [];
+
+    $daftarsiswa = [];
     for ($i = 0; $i < 10; $i++) {
         $nama = generateRandomName();
         $mapel = ["Inggris", "Indonesia", "Jepang"][rand(0, 2)];
         $nilai = rand(0, 100);
         $siswa = new Siswa($i + 1, $nama);
-        $nilaiSiswa = new Nilai($mapel, $nilai);
-        $siswa->tambahNilai($nilaiSiswa);
-        $daftarSiswa[] = $siswa;
+        $nilaisiswa = new Nilai($mapel, $nilai);
+        $siswa->tambahNilai($nilaisiswa);
+        $daftarsiswa[] = $siswa;
     }
+
     echo "<ol>";
-    foreach ($daftarSiswa as $siswa) {
+    foreach ($daftarsiswa as $siswa) {
         echo "<li>";
         echo "NRP: " . $siswa->nrp . ", Nama: " . $siswa->nama . "<br>";
         echo "<ul>";
-        foreach ($siswa->daftarNilai as $nilai) {
+        foreach ($siswa->daftarnilai as $nilai) {
             echo "<li>Mata Pelajaran: " . $nilai->mapel . ", Nilai: " . $nilai->nilai . "</li>";
         }
         echo "</ul>";

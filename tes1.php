@@ -3,103 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Token Verification</title>   
+    <title>Token Verification</title>
 </head>
 <body>
 <?php
-function generateToken($user) {
-    if (!isset($_SESSION['tokens'][$user])) {
-        $_SESSION['tokens'][$user] = array();
-    }
-    if (count($_SESSION['tokens'][$user]) >= 10) {
-        array_shift($_SESSION['tokens'][$user]);
-    }
+function buattoken($user) {
+    if (!isset($_SESSION['token'][$user])) $_SESSION['token'][$user] = [];
+    if (count($_SESSION['token'][$user]) >= 10) array_shift($_SESSION['token'][$user]);
     $token = bin2hex(random_bytes(16));
-    $_SESSION['tokens'][$user][] = $token;
+    $_SESSION['token'][$user][] = $token;
     return $token;
 }
-function verifyToken($user, $token) {
-    if (isset($_SESSION['tokens'][$user])) {
-        $index = array_search($token, $_SESSION['tokens'][$user]);
+
+function cektoken($user, $token) {
+    if (isset($_SESSION['token'][$user])) {
+        $index = array_search($token, $_SESSION['token'][$user]);
         if ($index !== false) {
-            unset($_SESSION['tokens'][$user][$index]);
+            unset($_SESSION['token'][$user][$index]);
             return true;
         }
     }
     return false;
 }
-function cariToken($user) {
-    if (isset($_SESSION['tokens'][$user])) {
-        return $_SESSION['tokens'][$user];
-    } else {
-        return null;
-    }
+
+function caritoken($user) {
+    return $_SESSION['token'][$user] ?? null;
 }
+
 session_start();
-if (isset($_POST['generate'])) {
-    $user = "rasyid10";
-    generateToken($user);
-}
+
+if (isset($_POST['buattokenbaru'])) buattoken("rasyid10");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['token'])) {
-        $tokenToVerify = $_POST['token'];
-        $user = "rasyid10";
-        $verificationResult = verifyToken($user, $tokenToVerify);
-        if ($verificationResult) {
-            echo '<div class="alert alert-success" role="alert">true</div>';
-        } else {
-            echo '<div class="alert alert-danger" role="alert">false</div>';
-        }
+        $cektoken = $_POST['token'];
+        $lihattoken = cektoken("rasyid10", $cektoken);
+        echo $lihattoken ? '<div>Valid</div>' : '<div>Invalid</div>';
     }
 }
-$user = "rasyid10";
-$token1 = generateToken($user);
-$token2 = generateToken($user);
-echo '<div class="container">';
-echo '<h1>Generated Tokens</h1>';
-echo '<ul class="list-group">';
-echo '<li class="list-group-item">Token 1: ' . $token1 . '</li>';
-echo '<li class="list-group-item">Token 2: ' . $token2 . '</li>';
+
+$token1 = buattoken("rasyid10");
+$token2 = buattoken("rasyid10");
+
+echo '<div>';
+echo '<h1>Generated token</h1>';
+echo '<ul>';
+echo '<li>Token 1: ' . $token1 . '</li>';
+echo '<li>Token 2: ' . $token2 . '</li>';
 echo '</ul>';
 echo '</div>';
-$tokenToVerify = $token1;
-if (verifyToken($user, $tokenToVerify)) {
-} else {   
-}
-$userToSearch = "rasyid10";
-$tokens = cariToken($userToSearch);
-if ($tokens !== null) {
-    echo '<div class="container">';
-    echo '<h2>Tokens for User: ' . $userToSearch . '</h2>';
-    echo '<ul class="list-group">';
-    foreach ($tokens as $token) {
-        echo '<li class="list-group-item">' . $token . '</li>';
+
+$cektoken = $token1;
+
+echo cektoken("rasyid10", $cektoken) ? '<div>Valid</div>' : '<div>Invalid</div>';
+
+$token = caritoken("rasyid10");
+
+echo '<div>';
+if ($token !== null) {
+    echo '<h2>token for User: rasyid10</h2>';
+    echo '<ul>';
+    foreach ($token as $token) {
+        echo '<li>' . $token . '</li>';
     }
     echo '</ul>';
-    echo '</div>';
 } else {
-    echo '<div class="container">';
-    echo '<div class="alert alert-warning" role="alert">';
-    echo 'Tidak ada token untuk pengguna ' . $userToSearch . '.';
-    echo '</div>';
-    echo '</div>';
+    echo '<div>No token for user rasyid10.</div>';
 }
+echo '</div>';
 ?>
-<div class="container">
+<div>
     <h1>Generate Token</h1>
     <form method="post" action="">
-        <button type="submit" class="btn btn-primary" name="generate">Generate Token</button>
+        <button name="buattokenbaru">Generate Token</button>
     </form>
 </div>
 
-<div class="container">
+<div>
     <h1>Verify Your Token</h1>
     <form method="post" action="">
-        <div class="form-group">
+        <div>
             <label for="token">Token:</label>
-            <input type="text" class="form-control" id="token" name="token">
+            <input type="text" id="token" name="token">
         </div>
-        <button type="submit" class="btn btn-primary">Verify</button>
+        <button>Verify</button>
     </form>
 </div>
 

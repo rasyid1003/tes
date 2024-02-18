@@ -1,5 +1,5 @@
 <?php
-function rambuLaluLintas() {
+function rambu() {
     static $warna = [
         'merah',
         'kuning',
@@ -12,9 +12,9 @@ function rambuLaluLintas() {
 
     return $color;
 }
-echo rambuLaluLintas() . "<br>"; // Output: merah
-echo rambuLaluLintas() . "<br>"; // Output: kuning
-echo rambuLaluLintas() . "<br>"; // Output: hijau
-echo rambuLaluLintas() . "<br>"; // Output: merah
-echo rambuLaluLintas() . "<br>";
+echo rambu() . "<br>"; // Output: merah
+echo rambu() . "<br>"; // Output: kuning
+echo rambu() . "<br>"; // Output: hijau
+echo rambu() . "<br>"; // Output: merah
+echo rambu() . "<br>";
 ?>
